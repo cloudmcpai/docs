@@ -1,11 +1,11 @@
 ---
-title: 'Generate MCP Token'
+title: 'Generate MCP URL'
 openapi: 'POST /generate-mcp-token'
 ---
 
 <RequestExample>
 ```bash cURL - Basic Request
-curl --location 'http://api.mcfy.ai/dev/v1/generate-mcp-token' \
+curl --location 'https://api.mcpfy.ai/dev/v1/generate-mcp-token' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer <YOUR_API_KEY>' \
 --data-raw '{
@@ -17,7 +17,7 @@ curl --location 'http://api.mcfy.ai/dev/v1/generate-mcp-token' \
 ```
 
 ```bash cURL - With Full Metadata
-curl --location 'http://api.mcfy.ai/dev/v1/generate-mcp-token' \
+curl --location 'https://api.mcpfy.ai/dev/v1/generate-mcp-token' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer <YOUR_API_KEY>' \
 --data-raw '{
@@ -37,7 +37,7 @@ curl --location 'http://api.mcfy.ai/dev/v1/generate-mcp-token' \
 
 ```javascript Node.js - Fetch API
 const generateMCPToken = async () => {
-  const response = await fetch('http://api.mcfy.ai/dev/v1/generate-mcp-token', {
+  const response = await fetch('https://api.mcpfy.ai/dev/v1/generate-mcp-token', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -71,7 +71,7 @@ const axios = require('axios');
 
 const generateMCPToken = async () => {
   try {
-    const response = await axios.post('http://api.mcfy.ai/dev/v1/generate-mcp-token', {
+    const response = await axios.post('https://api.mcpfy.ai/dev/v1/generate-mcp-token', {
       mcpServerId: "63re68ca47d201fa9d2974fa",
       customerDetails: {
         primaryIdentity: "user@example.com",
@@ -106,7 +106,7 @@ import requests
 import json
 
 def generate_mcp_token():
-    url = "http://api.mcfy.ai/dev/v1/generate-mcp-token"
+    url = "https://api.mcpfy.ai/dev/v1/generate-mcp-token"
     
     headers = {
         'Content-Type': 'application/json',
@@ -146,7 +146,7 @@ import httpx
 import asyncio
 
 async def generate_mcp_token():
-    url = "http://api.mcfy.ai/dev/v1/generate-mcp-token"
+    url = "https://api.mcpfy.ai/dev/v1/generate-mcp-token"
     
     headers = {
         'Content-Type': 'application/json',
@@ -189,7 +189,7 @@ asyncio.run(main())
 ```php PHP - cURL
 <?php
 function generateMCPToken() {
-    $url = 'http://api.mcfy.ai/dev/v1/generate-mcp-token';
+    $url = 'https://api.mcpfy.ai/dev/v1/generate-mcp-token';
     
     $headers = [
         'Content-Type: application/json',
@@ -282,7 +282,7 @@ type MCPTokenResponse struct {
 }
 
 func generateMCPToken() (*MCPTokenResponse, error) {
-    url := "http://api.mcfy.ai/dev/v1/generate-mcp-token"
+    url := "https://api.mcpfy.ai/dev/v1/generate-mcp-token"
     
     payload := MCPTokenRequest{
         MCPServerID: "63re68ca47d201fa9d2974fa",

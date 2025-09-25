@@ -1,0 +1,246 @@
+---
+title: 'List MCP Servers'
+openapi: 'GET /mcp-servers'
+---
+
+<RequestExample>
+```bash cURL
+curl -X GET https://api.mcpfy.ai/dev/v1/mcp-servers \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json"
+```
+
+```javascript Node.js - Fetch API
+const listMCPServers = async () => {
+  const response = await fetch('https://api.mcpfy.ai/dev/v1/mcp-servers', {
+    method: 'GET',
+    headers: {
+      'Authorization': 'Bearer YOUR_API_KEY',
+      'Content-Type': 'application/json'
+    }
+  });
+
+  const data = await response.json();
+  return data;
+};
+
+// Usage
+listMCPServers()
+  .then(result => console.log(result))
+  .catch(error => console.error('Error:', error));
+```
+
+```javascript Node.js - Axios
+const axios = require('axios');
+
+const listMCPServers = async () => {
+  try {
+    const response = await axios.get('https://api.mcpfy.ai/dev/v1/mcp-servers', {
+      headers: {
+        'Authorization': 'Bearer YOUR_API_KEY',
+        'Content-Type': 'application/json'
+      }
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('Error listing MCP servers:', error.response?.data || error.message);
+    throw error;
+  }
+};
+
+// Usage
+listMCPServers()
+  .then(result => console.log('MCP Servers:', result))
+  .catch(error => console.error('Failed to list servers'));
+```
+
+```python Python - Requests
+import requests
+
+def list_mcp_servers():
+    url = "https://api.mcpfy.ai/dev/v1/mcp-servers"
+    
+    headers = {
+        'Authorization': 'Bearer YOUR_API_KEY',
+        'Content-Type': 'application/json'
+    }
+    
+    try:
+        response = requests.get(url, headers=headers, timeout=30)
+        response.raise_for_status()
+        return response.json()
+    except requests.exceptions.RequestException as e:
+        print(f"Error listing MCP servers: {e}")
+        raise
+
+# Usage
+try:
+    result = list_mcp_servers()
+    print("MCP Servers:", result)
+except Exception as error:
+    print(f"Failed to list servers: {error}")
+```
+
+```python Python - HTTPX (Async)
+import httpx
+import asyncio
+
+async def list_mcp_servers():
+    url = "https://api.mcpfy.ai/dev/v1/mcp-servers"
+    
+    headers = {
+        'Authorization': 'Bearer YOUR_API_KEY',
+        'Content-Type': 'application/json'
+    }
+    
+    async with httpx.AsyncClient() as client:
+        try:
+            response = await client.get(url, headers=headers, timeout=30)
+            response.raise_for_status()
+            return response.json()
+        except httpx.RequestError as e:
+            print(f"Error listing MCP servers: {e}")
+            raise
+
+# Usage
+async def main():
+    try:
+        result = await list_mcp_servers()
+        print("MCP Servers:", result)
+    except Exception as error:
+        print(f"Failed to list servers: {error}")
+
+# Run the async function
+asyncio.run(main())
+```
+
+```php PHP - cURL
+<?php
+function listMCPServers() {
+    $url = 'https://api.mcpfy.ai/dev/v1/mcp-servers';
+    
+    $headers = [
+        'Authorization: Bearer YOUR_API_KEY',
+        'Content-Type: application/json'
+    ];
+    
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+    
+    $response = curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    
+    if (curl_errno($ch)) {
+        $error = curl_error($ch);
+        curl_close($ch);
+        throw new Exception("cURL error: " . $error);
+    }
+    
+    curl_close($ch);
+    
+    if ($httpCode !== 200) {
+        throw new Exception("HTTP error: " . $httpCode);
+    }
+    
+    return json_decode($response, true);
+}
+
+// Usage
+try {
+    $result = listMCPServers();
+    echo "MCP Servers: " . json_encode($result, JSON_PRETTY_PRINT) . "\n";
+} catch (Exception $e) {
+    echo "Failed to list servers: " . $e->getMessage() . "\n";
+}
+?>
+```
+
+```go Go
+package main
+
+import (
+    "encoding/json"
+    "fmt"
+    "io"
+    "net/http"
+    "time"
+)
+
+type MCPServer struct {
+    ID          string    `json:"id"`
+    Name        string    `json:"name"`
+    URL         string    `json:"url"`
+    Status      string    `json:"status"`
+    CreatedAt   time.Time `json:"created_at"`
+    UpdatedAt   time.Time `json:"updated_at"`
+}
+
+type MCPServersResponse struct {
+    Status string      `json:"status"`
+    Data   []MCPServer `json:"data"`
+    Error  *struct {
+        Code    string `json:"code"`
+        Message string `json:"message"`
+    } `json:"error,omitempty"`
+}
+
+func listMCPServers() (*MCPServersResponse, error) {
+    url := "https://api.mcpfy.ai/dev/v1/mcp-servers"
+    
+    req, err := http.NewRequest("GET", url, nil)
+    if err != nil {
+        return nil, fmt.Errorf("failed to create request: %w", err)
+    }
+    
+    req.Header.Set("Authorization", "Bearer YOUR_API_KEY")
+    req.Header.Set("Content-Type", "application/json")
+    
+    client := &http.Client{Timeout: 30 * time.Second}
+    resp, err := client.Do(req)
+    if err != nil {
+        return nil, fmt.Errorf("failed to make request: %w", err)
+    }
+    defer resp.Body.Close()
+    
+    body, err := io.ReadAll(resp.Body)
+    if err != nil {
+        return nil, fmt.Errorf("failed to read response: %w", err)
+    }
+    
+    var result MCPServersResponse
+    if err := json.Unmarshal(body, &result); err != nil {
+        return nil, fmt.Errorf("failed to unmarshal response: %w", err)
+    }
+    
+    return &result, nil
+}
+
+func main() {
+    result, err := listMCPServers()
+    if err != nil {
+        fmt.Printf("Failed to list servers: %v\n", err)
+        return
+    }
+    
+    fmt.Printf("MCP Servers: %+v\n", result)
+}
+```
+</RequestExample>
+
+<ResponseExample>
+```json Success Response
+[
+  {
+    "id": "64f8a1b2c3d4e5f6a7b8c9d0",
+    "name": "My MCP Server",
+    "isActive": true,
+    "createdAt": "2023-09-06T10:30:00.000Z",
+    "updatedAt": "2023-09-06T10:30:00.000Z"
+  }
+]
+```
+</ResponseExample>

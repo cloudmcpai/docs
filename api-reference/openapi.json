@@ -10,7 +10,7 @@
   },
   "servers": [
     {
-      "url": "http://api.mcfy.ai/dev/v1"
+      "url": "https://api.mcpfy.ai/dev/v1"
     }
   ],
   "security": [
@@ -19,11 +19,60 @@
     }
   ],
   "paths": {
+    "/mcp-servers": {
+      "get": {
+        "summary": "List MCP Servers",
+        "description": "Retrieve a list of all MCP servers for the authenticated user",
+        "operationId": "listMCPServers",
+        "tags": ["MCP Servers"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved MCP servers",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MCPServer"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing API key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/generate-mcp-token": {
       "post": {
-        "description": "Generate a new MCP token for a specific server and customer",
+        "summary": "Generate MCP URL",
+        "description": "Generate a new MCP URL for a specific server and customer",
         "requestBody": {
-          "description": "MCP server ID and customer details for token generation",
+          "description": "MCP server ID and customer details for URL generation",
           "content": {
             "application/json": {
               "schema": {
@@ -35,7 +84,7 @@
         },
         "responses": {
           "200": {
-            "description": "MCP token generated successfully",
+            "description": "MCP URL generated successfully",
             "content": {
               "application/json": {
                 "schema": {
@@ -321,6 +370,39 @@
             "example": 45
           }
         }
+      },
+      "MCPServer": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the MCP server",
+            "example": "64f8a1b2c3d4e5f6a7b8c9d0"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the MCP server",
+            "example": "My MCP Server"
+          },
+          "isActive": {
+            "type": "boolean",
+            "description": "Whether the MCP server is currently active",
+            "example": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp when the server was created",
+            "example": "2023-09-06T10:30:00.000Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp when the server was last updated",
+            "example": "2023-09-06T10:30:00.000Z"
+          }
+        },
+        "required": ["id", "name", "isActive", "createdAt", "updatedAt"]
       },
       "Plant": {
         "required": [
