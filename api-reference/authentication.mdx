@@ -1,0 +1,42 @@
+---
+title: "Authentication"
+description: "Learn how to authenticate with the MCPFY API and generate MCP tokens"
+---
+
+## Overview
+
+The MCPFY API uses Bearer token authentication for secure access to all endpoints. You'll need to obtain an API key from your dashboard and use it to generate MCP tokens for your applications.
+
+## Getting Your API Key
+
+<Steps>
+<Step title="Login to MCPFY Dashboard">
+  Navigate to [mcpfy.ai](https://mcpfy.ai) and log in to your account.
+</Step>
+
+<Step title="Access API Keys">
+  In the sidebar, go to **API Keys** section.
+</Step>
+
+<Step title="Create or Use API Key">
+  Either create a new API key or use an existing one from the list.
+  
+  <Warning>
+  Store your API key securely and never expose it in client-side code or public repositories.
+  </Warning>
+</Step>
+</Steps>
+
+
+
+## Using MCP Tokens
+
+Once you have generated an MCP token, use it in subsequent API calls:
+
+```bash
+curl --location 'http://api.mcfy.ai/dev/v1/your-endpoint' \
+--header 'Authorization: Bearer mcp_token_abc123xyz789' \
+--header 'Content-Type: application/json'
+```
+
+

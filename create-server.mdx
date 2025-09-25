@@ -1,0 +1,82 @@
+---
+title: "Create a Server"
+description: "Step-by-step guide to creating your MCP server using MCPFY platform"
+---
+
+## Overview
+
+Creating an MCP (Model Context Protocol) server is easy with the MCPFY platform. This guide walks you through the entire process from login to deployment.
+
+## Prerequisites
+
+Before creating a server, ensure you have:
+
+- An active MCPFY account
+- API endpoints you want to integrate as tools
+- Authentication details for your APIs
+
+<Info>
+Server creation typically takes 1-2 minutes depending on the number of API endpoints you're adding.
+</Info>
+
+## Creating Your MCP Server
+
+<Steps>
+<Step title="Login to MCPFY">
+  Navigate to [mcpfy.ai/login](https://mcpfy.ai/login) and sign in to your account.
+  
+  <Tip>
+  If you don't have an account yet, you can create one during the login process.
+  </Tip>
+</Step>
+
+<Step title="Access Generate MCP">
+  Once logged in, look for the **"Generate MCP"** option in the sidebar and click on it.
+  
+  <Frame>
+    <img src="/images/generate-mcp-sidebar.png" alt="Generate MCP option in MCPFY sidebar" />
+  </Frame>
+</Step>
+
+<Step title="Add API Endpoints">
+  Paste the cURL commands of the APIs that you need to add as tools.
+  
+  ```bash
+  # Example API endpoint
+  curl --location 'https://api.example.com/endpoint' \
+  --header 'Content-Type: application/json' \
+  --header 'Authorization: Bearer YOUR_API_KEY' \
+  --data-raw '{
+      "parameter": "value"
+    }'
+  ```
+  
+  <Tip>
+  You can add multiple API endpoints by pasting multiple cURL commands.
+  </Tip>
+</Step>
+
+<Step title="Configure Authentication">
+  Add authentication details for your APIs.
+</Step>
+
+<Step title="Test Your APIs">
+  Use the **"Test API"** button to verify that your endpoints are working correctly.
+  
+  <Check>
+  Make sure all your API tests return successful responses before proceeding.
+  </Check>
+</Step>
+
+<Step title="Deploy Your Server">
+  Click on **"Deploy"** to create your MCP server.
+  
+  <Info>
+  The deployment process will generate your MCP server URL and make it accessible.
+  </Info>
+</Step>
+</Steps>
+
+## Your MCP Server is Ready!
+
+Once deployment is complete, your MCP server is now ready and can be accessed through the provided URL.

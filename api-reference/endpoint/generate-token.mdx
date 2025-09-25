@@ -1,0 +1,355 @@
+---
+title: 'Generate MCP Token'
+openapi: 'POST /generate-mcp-token'
+---
+
+<RequestExample>
+```bash cURL - Basic Request
+curl --location 'http://api.mcfy.ai/dev/v1/generate-mcp-token' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer <YOUR_API_KEY>' \
+--data-raw '{
+    "mcpServerId": "63re68ca47d201fa9d2974fa",
+    "customerDetails": {
+      "primaryIdentity": "user@example.com"
+    }
+  }'
+```
+
+```bash cURL - With Full Metadata
+curl --location 'http://api.mcfy.ai/dev/v1/generate-mcp-token' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer <YOUR_API_KEY>' \
+--data-raw '{
+    "mcpServerId": "63re68ca47d201fa9d2974fa",
+    "customerDetails": {
+      "primaryIdentity": "john.doe@acme.com",
+      "metadata": {
+        "name": "John Doe",
+        "company": "Acme Corp",
+        "department": "Engineering",
+        "role": "Senior Developer",
+        "region": "US-East"
+      }
+    }
+  }'
+```
+
+```javascript Node.js - Fetch API
+const generateMCPToken = async () => {
+  const response = await fetch('http://api.mcfy.ai/dev/v1/generate-mcp-token', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer <YOUR_API_KEY>'
+    },
+    body: JSON.stringify({
+      mcpServerId: "63re68ca47d201fa9d2974fa",
+      customerDetails: {
+        primaryIdentity: "user@example.com",
+        metadata: {
+          name: "John Doe",
+          company: "Acme Corp",
+          department: "Engineering"
+        }
+      }
+    })
+  });
+
+  const data = await response.json();
+  return data;
+};
+
+// Usage
+generateMCPToken()
+  .then(result => console.log(result))
+  .catch(error => console.error('Error:', error));
+```
+
+```javascript Node.js - Axios
+const axios = require('axios');
+
+const generateMCPToken = async () => {
+  try {
+    const response = await axios.post('http://api.mcfy.ai/dev/v1/generate-mcp-token', {
+      mcpServerId: "63re68ca47d201fa9d2974fa",
+      customerDetails: {
+        primaryIdentity: "user@example.com",
+        metadata: {
+          name: "John Doe",
+          company: "Acme Corp",
+          department: "Engineering"
+        }
+      }
+    }, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer <YOUR_API_KEY>'
+      }
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('Error generating MCP token:', error.response?.data || error.message);
+    throw error;
+  }
+};
+
+// Usage
+generateMCPToken()
+  .then(result => console.log('Token generated:', result))
+  .catch(error => console.error('Failed to generate token'));
+```
+
+```python Python - Requests
+import requests
+import json
+
+def generate_mcp_token():
+    url = "http://api.mcfy.ai/dev/v1/generate-mcp-token"
+    
+    headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer <YOUR_API_KEY>'
+    }
+    
+    payload = {
+        "mcpServerId": "63re68ca47d201fa9d2974fa",
+        "customerDetails": {
+            "primaryIdentity": "user@example.com",
+            "metadata": {
+                "name": "John Doe",
+                "company": "Acme Corp",
+                "department": "Engineering"
+            }
+        }
+    }
+    
+    try:
+        response = requests.post(url, headers=headers, json=payload, timeout=30)
+        response.raise_for_status()
+        return response.json()
+    except requests.exceptions.RequestException as e:
+        print(f"Error generating MCP token: {e}")
+        raise
+
+# Usage
+try:
+    result = generate_mcp_token()
+    print("Token generated:", result)
+except Exception as error:
+    print(f"Failed to generate token: {error}")
+```
+
+```python Python - HTTPX (Async)
+import httpx
+import asyncio
+
+async def generate_mcp_token():
+    url = "http://api.mcfy.ai/dev/v1/generate-mcp-token"
+    
+    headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer <YOUR_API_KEY>'
+    }
+    
+    payload = {
+        "mcpServerId": "63re68ca47d201fa9d2974fa",
+        "customerDetails": {
+            "primaryIdentity": "user@example.com",
+            "metadata": {
+                "name": "John Doe",
+                "company": "Acme Corp",
+                "department": "Engineering"
+            }
+        }
+    }
+    
+    async with httpx.AsyncClient() as client:
+        try:
+            response = await client.post(url, headers=headers, json=payload, timeout=30)
+            response.raise_for_status()
+            return response.json()
+        except httpx.RequestError as e:
+            print(f"Error generating MCP token: {e}")
+            raise
+
+# Usage
+async def main():
+    try:
+        result = await generate_mcp_token()
+        print("Token generated:", result)
+    except Exception as error:
+        print(f"Failed to generate token: {error}")
+
+# Run the async function
+asyncio.run(main())
+```
+
+```php PHP - cURL
+<?php
+function generateMCPToken() {
+    $url = 'http://api.mcfy.ai/dev/v1/generate-mcp-token';
+    
+    $headers = [
+        'Content-Type: application/json',
+        'Authorization: Bearer <YOUR_API_KEY>'
+    ];
+    
+    $payload = [
+        'mcpServerId' => '63re68ca47d201fa9d2974fa',
+        'customerDetails' => [
+            'primaryIdentity' => 'user@example.com',
+            'metadata' => [
+                'name' => 'John Doe',
+                'company' => 'Acme Corp',
+                'department' => 'Engineering'
+            ]
+        ]
+    ];
+    
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+    
+    $response = curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    
+    if (curl_errno($ch)) {
+        $error = curl_error($ch);
+        curl_close($ch);
+        throw new Exception("cURL error: " . $error);
+    }
+    
+    curl_close($ch);
+    
+    if ($httpCode !== 200) {
+        throw new Exception("HTTP error: " . $httpCode);
+    }
+    
+    return json_decode($response, true);
+}
+
+// Usage
+try {
+    $result = generateMCPToken();
+    echo "Token generated: " . json_encode($result, JSON_PRETTY_PRINT) . "\n";
+} catch (Exception $e) {
+    echo "Failed to generate token: " . $e->getMessage() . "\n";
+}
+?>
+```
+
+```go Go
+package main
+
+import (
+    "bytes"
+    "encoding/json"
+    "fmt"
+    "io"
+    "net/http"
+    "time"
+)
+
+type CustomerDetails struct {
+    PrimaryIdentity string            `json:"primaryIdentity"`
+    Metadata        map[string]string `json:"metadata,omitempty"`
+}
+
+type MCPTokenRequest struct {
+    MCPServerID     string          `json:"mcpServerId"`
+    CustomerDetails CustomerDetails `json:"customerDetails"`
+}
+
+type MCPTokenData struct {
+    URL        string `json:"url"`
+    Token      string `json:"token"`
+    CustomerID string `json:"customerId"`
+}
+
+type MCPTokenResponse struct {
+    Status string        `json:"status"`
+    Data   *MCPTokenData `json:"data,omitempty"`
+    Error  *struct {
+        Code    string `json:"code"`
+        Message string `json:"message"`
+    } `json:"error,omitempty"`
+}
+
+func generateMCPToken() (*MCPTokenResponse, error) {
+    url := "http://api.mcfy.ai/dev/v1/generate-mcp-token"
+    
+    payload := MCPTokenRequest{
+        MCPServerID: "63re68ca47d201fa9d2974fa",
+        CustomerDetails: CustomerDetails{
+            PrimaryIdentity: "user@example.com",
+            Metadata: map[string]string{
+                "name":       "John Doe",
+                "company":    "Acme Corp",
+                "department": "Engineering",
+            },
+        },
+    }
+    
+    jsonData, err := json.Marshal(payload)
+    if err != nil {
+        return nil, fmt.Errorf("failed to marshal JSON: %w", err)
+    }
+    
+    req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonData))
+    if err != nil {
+        return nil, fmt.Errorf("failed to create request: %w", err)
+    }
+    
+    req.Header.Set("Content-Type", "application/json")
+    req.Header.Set("Authorization", "Bearer <YOUR_API_KEY>")
+    
+    client := &http.Client{Timeout: 30 * time.Second}
+    resp, err := client.Do(req)
+    if err != nil {
+        return nil, fmt.Errorf("failed to make request: %w", err)
+    }
+    defer resp.Body.Close()
+    
+    body, err := io.ReadAll(resp.Body)
+    if err != nil {
+        return nil, fmt.Errorf("failed to read response: %w", err)
+    }
+    
+    var result MCPTokenResponse
+    if err := json.Unmarshal(body, &result); err != nil {
+        return nil, fmt.Errorf("failed to unmarshal response: %w", err)
+    }
+    
+    return &result, nil
+}
+
+func main() {
+    result, err := generateMCPToken()
+    if err != nil {
+        fmt.Printf("Failed to generate token: %v\n", err)
+        return
+    }
+    
+    fmt.Printf("Token generated: %+v\n", result)
+}
+```
+</RequestExample>
+
+<ResponseExample>
+```json Success Response
+{
+  "status": "success",
+  "data": {
+    "url": "https://mcp.mcpfy.ai/5ftIjklywsiC9u6rMG45Xgtxzq1SAsFv/stream",
+    "token": "5ftIjklywsiC9u6rMG45Xgtxzq1SAsFv",
+    "customerId": "68d1a6ccdde500225e8cd70c"
+  }
+}
+```
+</ResponseExample>

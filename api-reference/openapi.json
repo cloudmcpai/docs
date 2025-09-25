@@ -1,8 +1,8 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "OpenAPI Plant Store",
-    "description": "A sample API that uses a plant store as an example to demonstrate features in the OpenAPI specification",
+    "title": "MCPFY API",
+    "description": "MCPFY API for generating MCP tokens and managing plant store operations",
     "license": {
       "name": "MIT"
     },
@@ -10,7 +10,7 @@
   },
   "servers": [
     {
-      "url": "http://sandbox.mintlify.com"
+      "url": "http://api.mcfy.ai/dev/v1"
     }
   ],
   "security": [
@@ -19,6 +19,64 @@
     }
   ],
   "paths": {
+    "/generate-mcp-token": {
+      "post": {
+        "description": "Generate a new MCP token for a specific server and customer",
+        "requestBody": {
+          "description": "MCP server ID and customer details for token generation",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MCPTokenRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "MCP token generated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MCPTokenResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid API key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Invalid server ID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/plants": {
       "get": {
         "description": "Returns all plants from the system that the user has access to",
@@ -154,6 +212,116 @@
   },
   "components": {
     "schemas": {
+      "MCPTokenRequest": {
+        "required": [
+          "mcpServerId",
+          "customerDetails"
+        ],
+        "type": "object",
+        "properties": {
+          "mcpServerId": {
+            "description": "The unique identifier for the MCP server",
+            "type": "string",
+            "example": "63re68ca47d201fa9d2974fa"
+          },
+          "customerDetails": {
+            "$ref": "#/components/schemas/CustomerDetails"
+          }
+        }
+      },
+      "CustomerDetails": {
+        "required": [
+          "primaryIdentity"
+        ],
+        "type": "object",
+        "properties": {
+          "primaryIdentity": {
+            "description": "Primary identifier for the customer (typically email)",
+            "type": "string",
+            "example": "user@example.com"
+          },
+          "metadata": {
+            "$ref": "#/components/schemas/CustomerMetadata"
+          }
+        }
+      },
+      "CustomerMetadata": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "Customer's full name",
+            "type": "string",
+            "example": "John Doe"
+          },
+          "company": {
+            "description": "Customer's company name",
+            "type": "string",
+            "example": "Acme Corp"
+          },
+          "department": {
+            "description": "Customer's department",
+            "type": "string",
+            "example": "Engineering"
+          }
+        }
+      },
+      "MCPTokenResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "description": "Indicates whether the request was successful",
+            "type": "string",
+            "example": "success",
+            "enum": ["success", "error"]
+          },
+          "data": {
+            "$ref": "#/components/schemas/MCPTokenData"
+          },
+          "error": {
+            "$ref": "#/components/schemas/ErrorDetails"
+          }
+        }
+      },
+      "MCPTokenData": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "description": "The MCP stream URL for connecting to the server",
+            "type": "string",
+            "example": "https://mcp.mcpfy.ai/5ftIjklywsiC9u6rMG45Xgtxzq1SAsFv/stream"
+          },
+          "token": {
+            "description": "The generated MCP token for authentication",
+            "type": "string",
+            "example": "5ftIjklywsiC9u6rMG45Xgtxzq1SAsFv"
+          },
+          "customerId": {
+            "description": "The unique identifier for the customer associated with this token",
+            "type": "string",
+            "example": "68d1a6ccdde500225e8cd70c"
+          }
+        }
+      },
+      "ErrorDetails": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "description": "Error code identifying the type of error",
+            "type": "string",
+            "example": "invalid_server_id"
+          },
+          "message": {
+            "description": "Human-readable error message describing the issue",
+            "type": "string",
+            "example": "The provided MCP server ID is invalid or not found"
+          },
+          "retryAfter": {
+            "description": "Seconds to wait before retrying (only for rate limit errors)",
+            "type": "integer",
+            "example": 45
+          }
+        }
+      },
       "Plant": {
         "required": [
           "name"
