@@ -7,7 +7,7 @@
     "light": "#07C983",
     "dark": "#15803D"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "/mcpfy-fav-icon-min.png",
   "navigation": {
     "tabs": [
       {
@@ -16,7 +16,6 @@
           {
             "group": "Getting started",
             "pages": [
-              "index",
               "create-server",
               "support"
             ]
@@ -35,11 +34,7 @@
           {
             "group": "Endpoint examples",
             "pages": [
-              "api-reference/endpoint/generate-token",
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "api-reference/endpoint/generate-token"
             ]
           }
         ]
@@ -61,8 +56,8 @@
     }
   },
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "light": "/logo/mcpfy-logo-light.png",
+    "dark": "/logo/mcpfy-logo-dark.png"
   },
   "navbar": {
     "links": [

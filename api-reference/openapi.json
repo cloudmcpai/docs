@@ -1,8 +1,8 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "MCPFY API",
-    "description": "MCPFY API for generating MCP tokens and managing plant store operations",
+    "title": "MCPfy API",
+    "description": "MCPfy API for generating MCP tokens and managing plant store operations",
     "license": {
       "name": "MIT"
     },
